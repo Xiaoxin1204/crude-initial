@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  tomcat:
+    basedir: /tmp/tomcat
+  servlet:
+    context-path: /crude
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://106.15.72.234:3306/demo?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 981204
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+mybatis:
+  typeAliasesPackage: com.**.entity
+  mapperLocations: classpath*:mapper/com/**/xml/**/*.xml
+mapper:
+  not-empty: false
+  identity: mysql
+  mappers: com.longshare.rest.core.dao.Mapper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true #页码<=0 查询第一页，页码>=总页数查询最后一页
+  support-methods-arguments: true #支持通过 Mapper 接口参数来传递分页参数
+  params: countSql
+logging:
+  level:
+    com.longshare: debug
+  file: /tmp/log/crude.txt
+
+security:
+  url:
+    whites:
+    - /**
+#    - /init
+#    - /auth/login
+#    - /problem
+#    - /swagger-ui.html
+#    - /swagger-resources/**
+#    - /swagger/**
+#    - /**/v2/api-docs
+#    - /**/*.js
+#    - /**/*.css
+#    - /**/*.png
+#    - /**/*.ico
+#    - /test/**
+#    - /browser/**
+#    - /ui-component/**
+rest:
+  hateoas:
+    collectionResourceRel: vos # 列表资源key名[_embedded.vos]，为空会自动赋值为类名复数
+  swagger:
+    enable: true

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longshare.microservice.demo.crude.orm.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.longshare.microservice.demo.crude.orm.entity.MenuEntity">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="no" jdbcType="DECIMAL" property="no" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="is_delete" jdbcType="CHAR" property="isDelete" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="created_at" jdbcType="DECIMAL" property="createdAt" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="updated_at" jdbcType="DECIMAL" property="updatedAt" />
+  </resultMap>
+
+  <sql id="includeColumns">
+    <trim suffixOverrides=",">
+      id as id,
+      parent_id as parentId,
+      name as name,
+      type as type,
+      code as code,
+      no as no,
+      is_delete as isDelete,
+      creator as creator,
+      created_at as createdAt,
+      updater as updater,
+      updated_at as updatedAt,
+      icon as icon,
+      description as description,
+      url as url,
+    </trim>
+
+  </sql>
+  <sql id="dynamicWhere">
+    <where>
+      1 = 1
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="isRootNode == true">
+        and (parent_id is NULL OR parent_id = '')
+      </if>
+      <if test="name != null and name != ''">
+            and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="menuIds != null and menuIds.size >0">
+        and id in
+        <foreach collection="menuIds" item="item" index="index" open="(" close=")" separator=",">
+          #{item,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+      <if test="parentId != null and parentId != ''">
+        and parent_id = #{parentId,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type,jdbcType=CHAR}
+      </if>
+      <if test="types != null and types.size >0">
+        and type in
+        <foreach collection="types" item="item" index="index" open="(" close=")" separator=",">
+          #{item,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+      <if test="code != null and code != ''">
+        and code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="no != null and no != ''">
+        and no = #{no,jdbcType=BIGINT}
+      </if>
+      <if test="isDelete != null and isDelete != ''">
+        and is_delete = #{isDelete,jdbcType=CHAR}
+      </if>
+      <if test="creator != null and creator != ''">
+        and creator = #{creator,jdbcType=VARCHAR}
+      </if>
+      <if test="createdAtStart != null">
+        and created_at <![CDATA[ >= ]]> #{createdAtStart,jdbcType=BIGINT}
+      </if>
+      <if test="createdAtEnd != null">
+        and created_at <![CDATA[ <= ]]> #{createdAtEnd,jdbcType=BIGINT}
+      </if>
+      <if test="createdAt != null and createdAt != ''">
+        and created_at = #{createdAt,jdbcType=BIGINT}
+      </if>
+      <if test="updater != null and updater != ''">
+        and updater = #{updater,jdbcType=VARCHAR}
+      </if>
+      <if test="updatedAtStart != null">
+        and updated_at <![CDATA[ >= ]]> #{updatedAtStart,jdbcType=BIGINT}
+      </if>
+      <if test="updatedAtEnd != null">
+        and updated_at <![CDATA[ <= ]]> #{updatedAtEnd,jdbcType=BIGINT}
+      </if>
+      <if test="updatedAt != null and updatedAt != ''">
+        and updated_at = #{updatedAt,jdbcType=BIGINT}
+      </if>
+      <if test="icon != null and icon != ''">
+        and icon = #{icon,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null and description != ''">
+        and description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="url != null and url != ''">
+        and url = #{url,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+    <resultMap id="menuTree" type="com.longshare.microservice.demo.crude.orm.entity.MenuEntity">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="parentId" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="url" property="url"/>
+        <result column="description" property="description"/>
+        <result column="icon" property="icon"/>
+        <result column="no" property="no"/>
+        <result column="createdAt" property="createdAt"/>
+        <result column="updatedAt" property="updatedAt"/>
+        <collection column="id" property="children" ofType="java.util.List" select="findMenuByParentId"/>
+    </resultMap>
+
+  <select id="queryMenu" parameterType="com.longshare.microservice.demo.crude.orm.param.MenuQueryBean"
+          resultMap="menuTree">
+      select
+      m.id as id,
+      m.parent_id as parentId,
+      m.type as type,
+      m.name as name,
+      m.code as code,
+      m.no as no,
+      m.is_delete as isDelete,
+      m.creator as creator,
+      m.created_at as createdAt,
+      m.updater as updater,
+      m.updated_at as updatedAt,
+      m.icon as icon,
+      m.description as description,
+      m.url as url
+      from  menu m
+      where 1=1
+      <if test="id != null and id != ''">
+          and m.id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null and type != ''">
+          and m.type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="code != null and code != ''">
+          and m.code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="parentId != null and parentId != ''">
+          and m.parent_id = #{parentId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderByStr != null and '' != orderByStr">
+          order by ${orderByStr}
+      </if>
+  </select>
+
+    <select id="findMenuByParentId" resultMap="menuTree">
+        select
+        <include refid="includeColumns"/>
+        from menu
+        where
+        parent_id = #{id}
+        order by no asc
+    </select>
+</mapper>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="useMapperCommentGenerator" value="true"/>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestMapperPlugin">
+            <property name="mappers" value="com.longshare.rest.core.dao.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="lombok" value="Getter,Setter,ToString"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.orm.entity"/>
+            <property name="templatePath" value="generator/template/Entity.java.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Entity.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.orm.xml"/>
+            <property name="templatePath" value="generator/template/EntityMapper.xml.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Mapper.xml"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.orm.mapper"/>
+            <property name="templatePath" value="generator/template/Mapper.java.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Mapper.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.service"/>
+            <property name="templatePath" value="generator/template/service.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Service.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.service.impl"/>
+            <property name="templatePath" value="generator/template/service-impl.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}ServiceImpl.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <!-- Restful level3 -->
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/controller-restful-level3.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Controller.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.model"/>
+            <property name="templatePath" value="generator/template/ResourceModel.java.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <!-- 入口 -->
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/index-controller-restful-level3.ftl"/>
+            <property name="fileName" value="IndexController.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <!-- 错误码 -->
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="templatePath" value="generator/template/ProblemCode.java.ftl"/>
+            <property name="fileName" value="ProblemCode.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="templatePath" value="generator/template/Application.java.ftl"/>
+            <property name="fileName" value="Application.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+
+        <!-- 测试 -->
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-test-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/test/DocumentationSupport.java.ftl"/>
+            <property name="fileName" value="DocumentationSupport.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-test-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/test/GettingStartedDocumentation.java.ftl"/>
+            <property name="fileName" value="GettingStartedDocumentation.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-test-sources/rests"/>
+            <property name="targetBasePackage" value="com.example.demo"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="templatePath" value="generator/template/test/SwaggerDocumentation.java.ftl"/>
+            <property name="fileName" value="SwaggerDocumentation.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-test-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/test/ResourceGSDocumentation.java.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}GSDocumentation.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="targetProject" value="target/generated-test-sources/rests"/>
+            <property name="targetBasePackage" value="com.longshare.microservice.demo.crude"/>
+            <property name="targetPackage" value="com.longshare.microservice.demo.crude.controller"/>
+            <property name="templatePath" value="generator/template/test/ResourceAPIDocumentation.java.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}APIDocumentation.java"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <!-- 文档 -->
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-doc-sources/rests"/>
+            <property name="targetBasePackage" value=""/>
+            <property name="targetPackage" value=""/>
+            <property name="templatePath" value="generator/template/asciidoc/api-guide.adoc.ftl"/>
+            <property name="fileName" value="api-guide.adoc"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-doc-sources/rests"/>
+            <property name="targetBasePackage" value=""/>
+            <property name="targetPackage" value=""/>
+            <property name="templatePath" value="generator/template/asciidoc/index.adoc.ftl"/>
+            <property name="fileName" value="index.adoc"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <plugin type="com.longshare.rest.generator.plugin.RestTemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="target/generated-doc-sources/rests"/>
+            <property name="targetBasePackage" value=""/>
+            <property name="targetPackage" value=""/>
+            <property name="templatePath" value="generator/template/asciidoc/swagger-index.adoc.ftl"/>
+            <property name="fileName" value="swagger-index.adoc"/>
+            <property name="templateFormatter"
+                      value="com.longshare.rest.generator.formatter.RestTemplateFormatter"/>
+        </plugin>
+
+        <!-- 注释，暂时用不到 -->
+        <!--<commentGenerator>-->
+            <!--<property name="suppressAllComments" value="false"/>-->
+            <!--<property name="suppressDate" value="true"/>-->
+            <!--<property name="addMapperAnnotation" value="true"/>-->
+        <!--</commentGenerator>-->
+
+        <!-- 内存数据库，可以直接由sql初始化 -->
+        <!--<jdbcConnection driverClass="org.hsqldb.jdbcDriver"-->
+                        <!--connectionURL="jdbc:hsqldb:mem:generator"-->
+                        <!--userId="sa"-->
+                        <!--password="">-->
+        <!--</jdbcConnection>-->
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://106.15.72.234:3306/demo?useSSL=false"
+                        userId="root"
+                        password="981204">
+        </jdbcConnection>
+
+        <!--MyBatis 生成器生成 Model-->
+        <javaModelGenerator targetPackage="com.longshare.microservice.demo.crude.model" targetProject="target/generated-sources/rests">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--MyBatis 生成器生成 Mapper XML-->
+        <sqlMapGenerator targetPackage="com.longshare.microservice.demo.crude.orm.xml" targetProject="target/generated-sources/rests" />
+
+        <!--MyBatis 生成器生成 Mapper java-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.longshare.microservice.demo.crude.orm.mapper" targetProject="target/generated-sources/rests" />
+
+        <!--TODO 需要生成的表申明-->
+        <table tableName="user">
+            <generatedKey column="id" sqlStatement="Mysql"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: crude
+  cloud:
+    config:
+      uri: ${CONFIG_SERVICE_URL:http://localhost:8888}
+      username: ${CONFIG_SERVICE_USER:user}
+      password: ${CONFIG_SERVICE_PASSWORD:199268fe-5c26-321b-806c-c3218ed01031}
+      fail-fast: false # 生产环境开启

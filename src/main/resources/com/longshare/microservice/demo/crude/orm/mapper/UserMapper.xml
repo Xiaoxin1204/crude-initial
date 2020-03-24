@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longshare.microservice.demo.crude.orm.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.longshare.microservice.demo.crude.orm.entity.UserEntity">
+        <!--
+          WARNING - @mbg.generated
+        -->
+            <result column="id" jdbcType="VARCHAR" property="id" />
+            <result column="username" jdbcType="VARCHAR" property="username" />
+            <result column="password" jdbcType="VARCHAR" property="password" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+            <result column="creator" jdbcType="VARCHAR" property="creator" />
+            <result column="created_at" jdbcType="DECIMAL" property="createdAt" />
+            <result column="updater" jdbcType="VARCHAR" property="updater" />
+            <result column="updated_at" jdbcType="DECIMAL" property="updatedAt" />
+    </resultMap>
+
+    <sql id="dynamicWhere">
+        <where>
+            1 = 1
+                <if test="keyCode != null and keyCode != ''">
+                    and (
+                        id like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                        or username like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                        or password like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                        or name like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                        or creator like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                        or updater like  CONCAT(CONCAT('%',#{keyCode,jdbcType=VARCHAR}),'%')
+                    )
+                </if>
+                <if test="id != null and id != ''">
+                    and id = #{id,jdbcType=VARCHAR}
+                </if>
+                <if test="username != null and username != ''">
+                    and username = #{username,jdbcType=VARCHAR}
+                </if>
+                <if test="password != null and password != ''">
+                    and password = #{password,jdbcType=VARCHAR}
+                </if>
+                <if test="name != null and name != ''">
+                    and name = #{name,jdbcType=VARCHAR}
+                </if>
+                <if test="creator != null and creator != ''">
+                    and creator = #{creator,jdbcType=VARCHAR}
+                </if>
+                <if test="createdAt != null and createdAt != ''">
+                    and created_at = #{createdAt,jdbcType=DECIMAL}
+                </if>
+                <if test="updater != null and updater != ''">
+                    and updater = #{updater,jdbcType=VARCHAR}
+                </if>
+                <if test="updatedAt != null and updatedAt != ''">
+                    and updated_at = #{updatedAt,jdbcType=DECIMAL}
+                </if>
+        </where>
+    </sql>
+
+    <select id="queryByQueryBean" parameterType="com.longshare.microservice.demo.crude.orm.param.UserQueryBean"
+            resultMap="BaseResultMap">
+        select
+        *
+        from user
+        <include refid="dynamicWhere"/>
+
+        <if test="orderByStr != null and '' != orderByStr">
+            order by ${orderByStr}
+        </if>
+    </select>
+</mapper>
